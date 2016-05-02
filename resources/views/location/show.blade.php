@@ -49,12 +49,21 @@
                 @endif
             </ul>
         </div>
+
+        @if (isset($attackLog))
+            <div class="col-md-12">
+                <ul>
+                    {{ $attackLog }}
+                </ul>
+            </div>
+        @endif
+
     </div>
 
     <div class="col-md-6">
         <h2>Characters at this location:</h2>
         <hr>
-        <div class="list-group">
+        <ul class="list-group">
             <?php $icon = ''; ?>
             @foreach($location->characters as $character)
                 <?php
@@ -65,16 +74,20 @@
                         $class = ($character->user->id == Auth::user()->id) ? 'active' : '';
                     }
                 ?>
-                <a href="#" class="list-group-item {{ $class }}">
+                <li class="list-group-item {{ $class }}">
                     @if($character->gender == 'male')
                         <span class="fa fa-mars"></span>
                     @else
                         <span class="fa fa-venus"></span>
                     @endif
                     {{ $character->name }} ({{ $character->race->name }}) {{$description}}
-                </a>
+                    ({{ $character->hit_points }} / {{ $character->total_hit_points }})
+                    <a href="{{ route('character.attack', ['character' => $character]) }}" class="pull-right">
+                        <span class="fa fa-flash"></span> attack
+                    </a>
+                </li>
             @endforeach
-        </div>
+        </ul>
     </div>
 
 @stop

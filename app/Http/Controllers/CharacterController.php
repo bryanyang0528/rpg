@@ -7,11 +7,11 @@ use App\Http\Requests\CreateCharacterRequest;
 use App\Http\Requests\MoveCharacterRequest;
 use App\Location;
 use App\Race;
+use App\RuleSet\Combat;
 use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -126,10 +126,31 @@ class CharacterController extends Controller
         //
     }
 
+    /**
+     * @param Character $character
+     * @param Location $location
+     * @param MoveCharacterRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function getMove(Character $character, Location $location, MoveCharacterRequest $request)
     {
         // update character's location
         $character->location()->associate($location)->save();
+
+        return redirect()->route('location.show', compact('location'));
+    }
+
+    /**
+     * @param Character $character
+     * @param Combat $combat
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getAttack(Character $character, Combat $combat)
+    {
+        $attacker = Auth::user()->character;
+        $location = $attacker->location;
+
+        $attackLog = $combat->attack($attacker, $character);
 
         return redirect()->route('location.show', compact('location'));
     }

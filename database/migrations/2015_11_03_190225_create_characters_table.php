@@ -21,6 +21,8 @@ class CreateCharactersTable extends Migration
             $table->unsignedInteger('xp');
             $table->unsignedInteger('level');
             $table->integer('reputation');
+            $table->integer('hit_points');
+            $table->integer('total_hit_points');
 
             $table->integer('money');
 
