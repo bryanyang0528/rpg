@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Character extends Model
 {
@@ -10,7 +12,7 @@ class Character extends Model
     /**
      * Get the user of the character
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -29,7 +31,7 @@ class Character extends Model
     /**
      * Get the user of the character
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function race()
     {
@@ -39,10 +41,18 @@ class Character extends Model
     /**
      * Get the current location of the character
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function location()
     {
         return $this->belongsTo('App\Location');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function battles()
+    {
+        return $this->belongsToMany(Battle::class);
     }
 }

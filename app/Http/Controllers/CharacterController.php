@@ -141,16 +141,16 @@ class CharacterController extends Controller
     }
 
     /**
-     * @param Character $character
+     * @param Character $defender
      * @param Combat $combat
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function getAttack(Character $character, Combat $combat)
+    public function getAttack(Character $defender, Combat $combat)
     {
         $attacker = Auth::user()->character;
         $location = $attacker->location;
 
-        $attackLog = $combat->attack($attacker, $character);
+        $attackLog = $combat->attack($attacker, $defender);
 
         return redirect()->route('location.show', compact('location'));
     }

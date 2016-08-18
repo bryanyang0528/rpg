@@ -53,12 +53,11 @@ class LocationController extends Controller
      * Display the specified resource.
      *
      * @param Location $location
-     * @param null $attackLog
      * @return \Illuminate\Http\Response
      */
-    public function show(Location $location, $attackLog = null)
+    public function show(Location $location)
     {
-        return view('location.show', compact('location', 'attackLog'));
+        return view('location.show', compact('location'));
     }
 
     /**
