@@ -14,6 +14,11 @@ class CreateBattlesTable extends Migration
     {
         Schema::create('battles', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('location_id');
+            $table->foreign('location_id')
+                ->references('id')
+                ->on('locations')
+                ->onDelete('restrict');
             $table->timestamps();
         });
     }

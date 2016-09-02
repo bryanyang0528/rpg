@@ -32,6 +32,6 @@ class CreateBattleCharacterTable extends Migration
      */
     public function down()
     {
-        Schema::drop('battle_log_user');
+        Schema::drop('battle_character');
     }
 }

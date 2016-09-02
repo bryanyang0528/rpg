@@ -15,7 +15,7 @@ class CreateLogsTable extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->text('log');
+            $table->text('body');
 
             $table->integer('battle_id')->unsigned()->index();
             $table->foreign('battle_id')->references('id')->on('battles')->onDelete('cascade');
@@ -31,6 +31,6 @@ class CreateLogsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('battle_logs');
+        Schema::drop('logs');
     }
 }

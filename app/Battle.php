@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -22,5 +23,15 @@ class Battle extends Model
     public function logs()
     {
         return $this->hasMany(Log::class);
+    }
+
+    /**
+     * Get the location of the battle
+     *
+     * @return BelongsTo
+     */
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Battle;
 use App\Character;
 use App\Http\Requests\CreateCharacterRequest;
 use App\Http\Requests\MoveCharacterRequest;
@@ -143,15 +144,19 @@ class CharacterController extends Controller
     /**
      * @param Character $defender
      * @param Combat $combat
+     * @param Battle $battle
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function getAttack(Character $defender, Combat $combat)
+    public function getAttack(Character $defender, Combat $combat, Battle $battle)
     {
         $attacker = Auth::user()->character;
+        /** @var Location $location */
         $location = $attacker->location;
 
-        $attackLog = $combat->attack($attacker, $defender);
+        /** @var Battle $battle */
+        $battle = $location->battles()->create([]);
+        $combat->attack($attacker, $defender, $battle);
 
-        return redirect()->route('location.show', compact('location'));
+        return redirect()->route('battle.show', compact('battle'));
     }
 }

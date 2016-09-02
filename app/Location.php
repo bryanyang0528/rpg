@@ -46,6 +46,16 @@ class Location extends Model
     }
 
     /**
+     * Get the battles at the location.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function battles()
+    {
+        return $this->hasMany(Battle::class);
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function adjacentLocations()

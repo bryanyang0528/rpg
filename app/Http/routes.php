@@ -14,6 +14,7 @@
 // Route models...
 Route::model("character", 'App\Character');
 Route::model("location", 'App\Location');
+Route::model("battle", 'App\Battle');
 
 Route::get('/character/{character}/location/{location}/move', 'CharacterController@getMove')
     ->name('character.move');
@@ -56,3 +57,4 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 // Route resources...
 Route::resource("character", "CharacterController");
 Route::resource("location", "LocationController");
+Route::resource("battle", "BattleController");
